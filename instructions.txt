@@ -1,0 +1,9 @@
+#1: Setup Boilerplate
+    *create Header and main elements
+    *Link normalize.css, main css, and app.js
+    *Create images/ folder
+
+#2: Structure
+    *inside header, create h1.title
+    *in main, create div.screen and div.controls
+    

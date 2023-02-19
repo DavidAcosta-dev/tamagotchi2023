@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* img size is 154 x 230 */
+  background: url("./images/chao_pattern.jpg") repeat 0 0;
+  animation: bg-scrolling 3s infinite linear;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  /* border: solid 4px gray; */
+  width: 800px;
+  /* background-color: rgba(102, 0, 0, 0.39); */
+  margin-top: 26px;
+  margin-bottom: 20px;
+  /* background-image: url("./images/cloud_background.jpg"); */
+}
+
+.title {
+  width: 437px;
+  height: 83px;
+  border: solid 2px red;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 45px;
+  margin: 0;
+  background: url("./images/title.gif"), url("./images/cloud_background.jpg");
+  background-position: left;
+}
+
+main {
+  display: flex;
+  /* background-color: rgba(0, 70, 102, 0.39); */
+  /* border: solid 2px rgb(89, 0, 255); */
+  flex-direction: column;
+  width: 789px;
+}
+
+.screen {
+  position: relative;
+  height: 452px;
+  border: solid 10px rgba(0, 150, 196, 0.811);
+  border-radius: 13px;
+  background-image: url(./images/background.jpg);
+  background-size: contain;
+}
+
+.pet {
+  background-image: url(./images/idle.gif);
+  background-size: contain;
+  width: 98px;
+  height: 100px;
+  background-repeat: no-repeat;
+  border: solid 1px black;
+  position: absolute;
+  top: 312px;
+  left: 275px;
+  z-index: 10;
+}
+
+.dancing {
+  background-image: url(./images/dancing.gif);
+  width: 172px;
+  height: 143px;
+  top: 260px;
+}
+
+.fishTank {
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  top: 255px;
+  left: 79px;
+  background-size: contain;
+  background-image: url(./images/fishtank.gif);
+  border-radius: 16px;
+}
+
+.boombox {
+  width: 71px;
+  height: 52px;
+  background-image: url(./images/boombox_static.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 262px;
+  left: 364px;
+  border-radius: 23px;
+  /* border: solid 1px; */
+}
+
+.boombox:hover {
+  box-shadow: inset 0 0 20px 3px #fff00082;
+  box-shadow: 0px 11px 11px 2px #fff00082;
+  width: 72px;
+  height: 53px;
+}
+
+.boomboxOn {
+  background-image: url(./images/boombox.gif);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+  /* border: solid 2px rgb(196, 0, 0); */
+  height: 70px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 80%;
+  align-self: center;
+}
+
+.controls button {
+  width: 100px;
+  border-radius: 13px;
+}
+
+/* wallpaper animation */
+
+@keyframes bg-scrolling {
+  100% {
+    background-position: 154px 230px; /* this is the size of the pattern*/
+  }
+}
