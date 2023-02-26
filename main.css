@@ -2,6 +2,47 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+/* ----------------Create your variables here!----------------------- */
+:root {
+  /* pet */
+  --pet-width: 107px;
+  --pet-height: 110px;
+
+  /* boombox */
+  --boombox-width: 71px;
+  --boombox-height: 52px;
+
+  /* fishtank */
+  --fishtank-width: 68px;
+  --fishtank-height: 68px;
+
+  /* fridge */
+  --fridge-width: 65px;
+  --fridge-height: 142px;
+
+  /* light */
+  --light-width: 142px;
+  --light-height: 101px;
+}
+
+@font-face {
+  font-family: "Pixel NES";
+  src: url("/font/Pixel_NES.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mario World Pixel Color";
+  src: url("./font/MarioWorldPixelColor.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
@@ -11,6 +52,19 @@ body {
   /* img size is 154 x 230 */
   background: url("./images/chao_pattern.jpg") repeat 0 0;
   animation: bg-scrolling 3s infinite linear;
+  height: 100vh;
+}
+
+.startButton {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.restartButton {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 header {
@@ -54,11 +108,29 @@ main {
   cursor: url(./images/white-cartoon-hand-cursor.png), auto;
 }
 
-.pet {
+.overlay {
+  position: relative;
+  height: 452px;
+  border: solid 10px rgba(0, 0, 0, 0.368);
+  border-radius: 13px;
+  background-color: #000000bf;
+  cursor: url(./images/white-cartoon-hand-cursor.png), auto;
+  z-index: 11;
+}
+
+.static {
   background-image: url(./images/idle.gif);
+}
+
+.hatching {
+  background-image: url(./images/hatching.gif);
+  width: calc(var(--pet-width) + 40px) !important;
+}
+
+.pet {
   background-size: contain;
-  width: 107px;
-  height: 110px;
+  width: var(--pet-width);
+  height: var(--pet-height);
   background-repeat: no-repeat;
   /* border: solid 1px black; */
   position: absolute;
@@ -74,10 +146,47 @@ main {
   top: 260px;
 }
 
+.eating {
+  background-image: url(./images/eating.gif);
+  width: 172px;
+  height: 143px;
+  top: 260px;
+}
+
+.sleeping {
+  background-image: url(./images/sleeping1.gif);
+  width: 172px;
+  height: 143px;
+  top: 260px;
+}
+
+/* ------fridge----- */
+.fridge {
+  width: var(--fridge-width);
+  height: var(--fridge-height);
+  background-image: url(./images/fridge.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 172px;
+  left: 339px;
+  /* border-radius: 23px; */
+  /* border: solid 2px; */
+  cursor: url(./images/white-cartoon-hand-pointer.png), auto;
+}
+
+.fridge:hover {
+  box-shadow: 0px 11px 11px 2px #fff00082;
+  background-image: url(./images/fridgeOpen.png);
+  width: calc(var(--fridge-width) + 64px);
+  /* height: calc(var(--fridge-height) + 1px); */
+}
+
+/* ------fishtank----- */
 .fishTank {
   position: absolute;
-  width: 68px;
-  height: 68px;
+  width: var(--fishtank-width);
+  height: var(--fishtank-height);
   top: 255px;
   left: 79px;
   background-size: contain;
@@ -85,29 +194,115 @@ main {
   border-radius: 16px;
 }
 
+.fishTank:hover {
+  box-shadow: 0px 0px 8px 4px #fff00082;
+  width: calc(var(--fishtank-width) + 1px);
+  height: calc(var(--fishtank-height) + 1px);
+}
+
+/* ------boombox----- */
 .boombox {
-  width: 71px;
-  height: 52px;
+  width: var(--boombox-width);
+  height: var(--boombox-height);
   background-image: url(./images/boombox_static.gif);
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
   top: 262px;
-  left: 364px;
+  left: 460px;
   border-radius: 23px;
   /* border: solid 1px; */
   cursor: url(./images/white-cartoon-hand-pointer.png), auto;
 }
 
 .boombox:hover {
-  box-shadow: inset 0 0 20px 3px #fff00082;
   box-shadow: 0px 11px 11px 2px #fff00082;
-  width: 72px;
-  height: 53px;
+  width: calc(var(--boombox-width) + 1px);
+  height: calc(var(--boombox-height) + 1px);
 }
 
 .boomboxOn {
   background-image: url(./images/boombox.gif);
+}
+
+/* ------light----- */
+.light {
+  width: var(--light-width);
+  height: var(--light-height);
+  background-image: url(./images/light.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -2px;
+  left: 557px;
+  border-radius: 23px;
+  /* border: solid 1px; */
+  cursor: url(./images/white-cartoon-hand-pointer.png), auto;
+}
+
+.light:hover {
+  box-shadow: 0px 20px 12px 5px #fff00082;
+  width: calc(var(--light-width) + 1px);
+  height: calc(var(--light-height) + 1px);
+}
+
+.lightOff {
+  background-image: url(./images/lightOff.png);
+}
+
+.infoBox {
+  display: flex;
+  /* justify-content: space-evenly; */
+  /* border: solid 10px rgb(196, 0, 0); */
+  /* border-radius: 13px; */
+  margin-top: 9px;
+  margin-bottom: 20px;
+  /* background-color: #f0f8ffe6; */
+  height: 140px;
+  /* padding-top: 20px; */
+  /* padding-bottom: 10px; */
+  width: 100%;
+  align-self: center;
+  /* padding-left: 15px; */
+  /* padding-right: 15px; */
+}
+
+.statBox {
+  padding: 20px 5px;
+  background-color: rgb(43, 43, 43);
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  border: solid 10px rgba(0, 150, 196, 0.811);
+  border-radius: 13px;
+  width: 48%;
+  margin-right: 10px;
+  font-family: "Mario World Pixel Color";
+  font-weight: normal;
+  font-style: normal;
+  justify-content: space-between;
+}
+
+.stat {
+}
+
+.petChatBox {
+  padding: 20px;
+  font-size: 22px;
+  color: whitesmoke;
+  border: solid 10px rgba(0, 150, 196, 0.811);
+  background-color: #110f0f;
+  border-radius: 13px;
+  width: 100%;
+  font-family: "Pixel NES";
+  font-weight: normal;
+  font-style: normal;
+}
+
+.petChatBox span {
+  font-family: "Mario World Pixel Color";
+  font-weight: normal;
+  font-style: normal;
 }
 
 .controls {
@@ -132,5 +327,54 @@ main {
 @keyframes bg-scrolling {
   100% {
     background-position: 154px 230px; /* this is the size of the pattern*/
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+/*------------------------------------------------ shaky animation*/
+.shake {
+  animation: shake 0.5s;
+  /* animation-iteration-count: 1; */
+}
+.noshake {
+  animation: none;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
   }
 }
