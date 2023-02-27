@@ -16,13 +16,15 @@
     </header>
     <main>
       <div class="screen">
-        <div class="overlay hidden"></div>
-        <button onClick="myPet.startOver()" class="restartButton hidden">
+        <audio src="./music/chaomusic.mp3" loop></audio>
+        <button id="musicButton">🔊</button>
+
+        <div class="overlay darken"></div>
+
+        <button onClick="startOver()" class="restartButton hidden">
           Try Again? 🔁
         </button>
-        <button onClick="myPet.startGame()" class="startButton">
-          START GAME
-        </button>
+        <button onClick="startGame()" class="startButton">START GAME</button>
         <div class="pet hatching hidden"></div>
         <div class="fishTank"></div>
         <div class="boombox"></div>
@@ -31,13 +33,13 @@
       </div>
       <div class="infoBox">
         <ul class="statBox">
-          <li>🍪Hunger: <span class="hungerStat">0</span></li>
-          <li>💤Energy: <span class="energyStat">0</span></li>
-          <li>🛝Fun: <span class="funStat"></span>0</li>
+          <li>🍪Hunger: <span class="hungerStat"></span></li>
+          <li>💤Energy: <span class="sleepinessStat"></span></li>
+          <li>🛝Fun: <span class="funStat"></span></li>
         </ul>
         <div class="petChatBox">
-          <span>Neko:</span>
-          <p class="petSays">"Grrr, behold, I hatch, therefore I am."</p>
+          <span class="petNameStat"></span>:
+          <p class="petSays"></p>
         </div>
       </div>
       <div class="controls hidden">

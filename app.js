@@ -29,6 +29,82 @@ const state = {
   sleepinessInterval: null,
 };
 
+let myPet;
+
+//-----------------Visual Elements on screen <HTML/>----------------------
+
+const fishTank = document.querySelector(".fishTank");
+const boombox = document.querySelector(".boombox");
+const pet = document.querySelector(".pet");
+const fridge = document.querySelector(".fridge");
+const light = document.querySelector(".light");
+
+const screen = document.querySelector(".screen");
+const overlay = document.querySelector(".overlay");
+const petSays = document.querySelector(".petSays");
+const hungerStat = document.querySelector(".hungerStat");
+const sleepinessStat = document.querySelector(".sleepinessStat");
+const funStat = document.querySelector(".funStat");
+const petNameStat = document.querySelector(".petNameStat");
+
+const startButton = document.querySelector(".startButton");
+const restartButton = document.querySelector(".restartButton");
+
+const musicButton = document.querySelector("#musicButton");
+const audio = document.querySelector("audio");
+
+musicButton.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.volume = 0.1;
+    audio.play();
+    musicButton.innerText = "🔊";
+  } else {
+    audio.pause();
+    musicButton.innerText = "🔈";
+  }
+});
+
+//-------startGame function-----------------------
+function startGame() {
+  overlay.classList.toggle("hidden");
+  startButton.classList.toggle("hidden"); //hide start button
+  const petName = prompt("Give your pet a proper name", "type name"); //grabs users input
+  myPet = new Pet(petName); //creating our pet
+  petNameStat.innerText = myPet.name; //updates the chat box with new name
+  audio.volume = 0.1;
+  audio.play();
+  console.log(`${myPet.name} has been instantiated`);
+  myPet.hatching(); //hatch egg
+
+  overlay.classList.toggle("hidden");
+  overlay.classList.toggle("darken");
+  overlay.classList.toggle("confetti");
+  setTimeout(() => {
+    overlay.classList.toggle("hidden");
+    overlay.classList.toggle("darken");
+    overlay.classList.toggle("confetti");
+  }, 3000);
+
+  //----connect event listeners
+  fishTank.addEventListener("click", myPet.tapFishBowl);
+  boombox.addEventListener("click", myPet.dance);
+  fridge.addEventListener("click", myPet.feedPet);
+  light.addEventListener("click", myPet.sleep);
+
+  //--------filling the html stats with initial values
+  hungerStat.innerText = myPet.hunger; //showing initial value on hunger stats
+  funStat.innerText = myPet.boredom; //showing initial value on boredom stats
+  sleepinessStat.innerText = myPet.sleepiness; //showing initial value on sleepiness stats
+  petSays.innerText = "BEHOLD...I am hatched, therefore I am";
+}
+//----------------end of startGame function------------
+
+//------startOver function------🔁
+function startOver() {
+  window.location.reload();
+}
+//------startOver function END------
+
 class Pet {
   // setup a constructor
   constructor(name) {
@@ -39,14 +115,6 @@ class Pet {
     this.boredom = 0; //⭐
     this.isBusy = false;
   }
-
-  startGame = () => {
-    startButton.classList.toggle("hidden");
-  };
-
-  startOver = () => {
-    window.location.reload();
-  };
 
   hatching = () => {
     this.isBusy = true;
@@ -108,7 +176,7 @@ class Pet {
   getsBored = () => {
     this.boredom += 1;
 
-    boredomStat.innerText = this.boredom; //updating hunger stats
+    funStat.innerText = this.boredom; //updating hunger stats
     console.log(`Boredom: ${this.boredom}`);
 
     if (this.boredom === 10) {
@@ -182,7 +250,7 @@ class Pet {
       this.isBusy = true; //setting isBusy to true so no other actions can be called.
       log("MUSIC 🎧🎶🎵🎹🎼");
       this.boredom -= 2;
-      boredomStat.innerText = this.boredom;
+      funStat.innerText = this.boredom;
       boombox.classList.toggle("boomboxOn"); //turn boombox on
       pet.classList.toggle("dancing"); //make pet dance
 
@@ -214,44 +282,22 @@ class Pet {
       }, 5000);
     }
   };
+
+  tapFishBowl = () => {
+    if (!this.isBusy) {
+      this.isBusy = true;
+      screen.classList.toggle("shake");
+
+      setTimeout(() => {
+        screen.classList.toggle("shake");
+        this.isBusy = false;
+      }, 100);
+    }
+  };
 } //-----------------------------------end of class--------------------------
 
 //test 2: Lets see if our pet exists!
-const myPet = new Pet("Spike");
-setTimeout(() => {
-  myPet.hatching();
-}, 500);
-
-//-----------------Visual Elements on screen <HTML/>----------------------
-
-const fishTank = document.querySelector(".fishTank");
-const boombox = document.querySelector(".boombox");
-const pet = document.querySelector(".pet");
-const fridge = document.querySelector(".fridge");
-const light = document.querySelector(".light");
-
-const screen = document.querySelector(".screen");
-const overlay = document.querySelector(".overlay");
-const petSays = document.querySelector(".petSays");
-const hungerStat = document.querySelector(".hungerStat");
-const energyStat = document.querySelector(".energyStat");
-const funStat = document.querySelector(".funStat");
-
-const startButton = document.querySelector(".startButton");
-const restartButton = document.querySelector(".restartButton");
-
-fishTank.addEventListener("click", () => {
-  if (!myPet.isBusy) {
-    myPet.isBusy = true;
-    screen.classList.toggle("shake");
-
-    setTimeout(() => {
-      screen.classList.toggle("shake");
-      myPet.isBusy = false;
-    }, 100);
-  }
-});
-
-boombox.addEventListener("click", myPet.dance);
-fridge.addEventListener("click", myPet.feedPet);
-light.addEventListener("click", myPet.sleep);
+// myPet = new Pet("Spike");
+// setTimeout(() => {
+//   myPet.hatching();
+// }, 500);

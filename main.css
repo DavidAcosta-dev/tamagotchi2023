@@ -55,16 +55,60 @@ body {
   height: 100vh;
 }
 
+/* ----------------Music----------- */
+#musicButton {
+  font-size: 25px;
+  color: #eee;
+  position: absolute;
+  top: 6px;
+  left: 9px;
+  width: 65px;
+  padding: 15px;
+  border-radius: 45px;
+  background: rgba(115, 67, 167, 0.8);
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
+  opacity: 0.8;
+  cursor: pointer;
+  z-index: 12;
+}
+
 .startButton {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 161px;
+  left: 204px;
+  background: url(./images/glass.png), #7e9aff no-repeat;
+  font-family: "Pixel NES";
+  background-size: cover;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 45px;
+  padding: 15px;
+  border-radius: 13px;
+  text-shadow: 4px 3px 4px #00000091;
+  z-index: 11;
+  cursor: url(./images/white-cartoon-hand-pointer.png), auto;
+}
+
+.startButton:hover,
+.startOver:hover {
+  box-shadow: 0px 0px 20px 5px #ffd700c9;
 }
 
 .restartButton {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 161px;
+  left: 204px;
+  background: url(./images/glass.png), #7e9aff no-repeat;
+  font-family: "Pixel NES";
+  background-size: cover;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 45px;
+  padding: 15px;
+  border-radius: 13px;
+  text-shadow: 4px 3px 4px #00000091;
+  z-index: 11;
+  cursor: url(./images/white-cartoon-hand-pointer.png), auto;
 }
 
 header {
@@ -113,9 +157,17 @@ main {
   height: 452px;
   border: solid 10px rgba(0, 0, 0, 0.368);
   border-radius: 13px;
-  background-color: #000000bf;
   cursor: url(./images/white-cartoon-hand-cursor.png), auto;
   z-index: 11;
+}
+
+.darken {
+  background-color: #000000bf;
+}
+
+.confetti {
+  background-image: url(./images/confetti.gif);
+  background-size: contain;
 }
 
 .static {
@@ -170,8 +222,6 @@ main {
   position: absolute;
   top: 172px;
   left: 339px;
-  /* border-radius: 23px; */
-  /* border: solid 2px; */
   cursor: url(./images/white-cartoon-hand-pointer.png), auto;
 }
 
@@ -179,7 +229,7 @@ main {
   box-shadow: 0px 11px 11px 2px #fff00082;
   background-image: url(./images/fridgeOpen.png);
   width: calc(var(--fridge-width) + 64px);
-  /* height: calc(var(--fridge-height) + 1px); */
+  cursor: url(./images/white-cartoon-hand-pointer.png), auto;
 }
 
 /* ------fishtank----- */
@@ -252,19 +302,11 @@ main {
 
 .infoBox {
   display: flex;
-  /* justify-content: space-evenly; */
-  /* border: solid 10px rgb(196, 0, 0); */
-  /* border-radius: 13px; */
   margin-top: 9px;
   margin-bottom: 20px;
-  /* background-color: #f0f8ffe6; */
   height: 140px;
-  /* padding-top: 20px; */
-  /* padding-bottom: 10px; */
   width: 100%;
   align-self: center;
-  /* padding-left: 15px; */
-  /* padding-right: 15px; */
 }
 
 .statBox {
