@@ -66,7 +66,7 @@ musicButton.addEventListener("click", () => {
 
 //-------startGame function-----------------------
 function startGame() {
-  overlay.classList.toggle("hidden");
+  overlay.classList.toggle("hidden"); //hide the overlay
   startButton.classList.toggle("hidden"); //hide start button
   const petName = prompt("Give your pet a proper name", "type name"); //grabs users input
   myPet = new Pet(petName); //creating our pet
@@ -93,7 +93,7 @@ function startGame() {
 
   //--------filling the html stats with initial values
   hungerStat.innerText = myPet.hunger; //showing initial value on hunger stats
-  funStat.innerText = myPet.boredom; //showing initial value on boredom stats
+  funStat.innerText = myPet.fun; //showing initial value on boredom stats
   sleepinessStat.innerText = myPet.sleepiness; //showing initial value on sleepiness stats
   petSays.innerText = "BEHOLD...I am hatched, therefore I am";
 }
@@ -112,7 +112,7 @@ class Pet {
     this.age = 0;
     this.hunger = 0; //⭐
     this.sleepiness = 0; //⭐
-    this.boredom = 0; //⭐
+    this.fun = 5; //⭐
     this.isBusy = false;
   }
 
@@ -130,7 +130,7 @@ class Pet {
       state.ageInterval = setInterval(this.ageUp, 20000); //starts aging after 4 seconds of being hatched
       state.hungerInterval = setInterval(this.getsHungry, 10000); //hunger starts increasing
       state.boredomInterval = setInterval(this.getsBored, 12000); //boredom starts increasing
-      state.sleepinessInterval = setInterval(this.getsSleepy, 15000); //sleepiness starts increasing
+      state.sleepinessInterval = setInterval(this.getSleepy, 15000); //sleepiness starts increasing
     }, 3000);
   };
 
@@ -155,6 +155,8 @@ class Pet {
     if (this.hunger === 10) {
       petSays.innerText = "I passed out from hunger 💀";
       log(`Death by hunger 💀`);
+      audio.src = "./music/sad_song.mp3";
+      audio.play();
 
       pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
       // pet.classList.toggle("eggdied"); //TURN ON EGG DYING
@@ -167,24 +169,25 @@ class Pet {
       clearInterval(state.sleepinessInterval);
 
       restartButton.classList.toggle("hidden");
-    } else if (this.hunger >= 3) {
+    } else if (this.hunger >= 4) {
       petSays.innerText = "😋🍖 FEED ME, FEEED MEEEE!!!!";
       log(`FEED ME, FEED MEEEEE!!!`);
     }
   }; //-------------- getsHungry
 
   getsBored = () => {
-    this.boredom += 1;
+    this.fun -= 1;
 
-    funStat.innerText = this.boredom; //updating hunger stats
-    console.log(`Boredom: ${this.boredom}`);
+    funStat.innerText = this.fun; //updating hunger stats
+    console.log(`Boredom: ${this.fun}`);
 
-    if (this.boredom === 10) {
-      petSays.innerText = "I passed out from hunger 💀";
-      log(`Death by hunger 💀`);
+    if (this.fun === 0) {
+      petSays.innerText = "I passed out from boredom 💀";
+      log(`Death by boredom 💀`);
+      audio.src = "./music/sad_song.mp3";
+      audio.play();
 
-      pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
-      // pet.classList.toggle("eggdied"); //TURN ON EGG DYING
+      pet.removeAttribute("class"); //so it doesnt matter what pet is doing, it will be removed once it faints
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
@@ -194,9 +197,8 @@ class Pet {
       clearInterval(state.sleepinessInterval);
 
       restartButton.classList.toggle("hidden");
-    } else if (this.hunger >= 3) {
-      petSays.innerText = "😋🍖 FEED ME, FEEED MEEEE!!!!";
-      log(`FEED ME, FEED MEEEEE!!!`);
+    } else if (this.fun <= 3) {
+      petSays.innerText = "🛝🧸PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
     }
   }; //-------------- getsHungry
 
@@ -211,6 +213,8 @@ class Pet {
     if (this.sleepiness === 10) {
       petSays.innerText = "I died of sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
+      audio.src = "./music/sad_song.mp3";
+      audio.play();
 
       petSays.innerText = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
@@ -224,16 +228,16 @@ class Pet {
       clearInterval(state.hungerInterval);
       clearInterval(state.boredomInterval);
       clearInterval(state.sleepinessInterval);
-    } else if (this.sleepiness >= 3) {
+    } else if (this.sleepiness >= 6) {
       petSays.innerText = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
       console.log(`YAAAAAAAAWWWWWWNNNN 🥱`);
     }
   }; //---------getsSleepy() FUNCTIONS ENDS
 
   feedPet = () => {
-    if (!this.isBusy) {
+    if (!this.isBusy && this.hunger >= 2) {
       this.isBusy = true; //setting isBusy to true so no other actions can be called.
-      log("Lunch time! 🍖");
+      // log("Lunch time! 🍖");
       myPet.hunger -= 2;
       hungerStat.innerText = this.hunger;
       pet.classList.toggle("eating"); //make pet eat
@@ -246,11 +250,11 @@ class Pet {
   };
 
   dance = () => {
-    if (!this.isBusy) {
+    if (!this.isBusy && this.fun <= 8) {
       this.isBusy = true; //setting isBusy to true so no other actions can be called.
       log("MUSIC 🎧🎶🎵🎹🎼");
-      this.boredom -= 2;
-      funStat.innerText = this.boredom;
+      this.fun += 2;
+      funStat.innerText = this.fun;
       boombox.classList.toggle("boomboxOn"); //turn boombox on
       pet.classList.toggle("dancing"); //make pet dance
 
@@ -263,7 +267,7 @@ class Pet {
   };
 
   sleep = () => {
-    if (!this.isBusy) {
+    if (!this.isBusy && this.sleepiness >= 2) {
       this.isBusy = true; //setting isBusy to true so no other actions can be called.
 
       this.sleepiness -= 2;
