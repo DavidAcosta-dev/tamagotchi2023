@@ -155,11 +155,14 @@ class Pet {
     if (this.hunger === 10) {
       petSays.innerText = "I passed out from hunger 💀";
       log(`Death by hunger 💀`);
+      const pacman = new Audio("./music/pacman.mp3");
+      pacman.volume = 0.1;
+      pacman.play();
+
       audio.src = "./music/sad_song.mp3";
       audio.play();
 
-      pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
-      // pet.classList.toggle("eggdied"); //TURN ON EGG DYING
+      pet.classList.toggle("sleeping");
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
@@ -184,10 +187,13 @@ class Pet {
     if (this.fun === 0) {
       petSays.innerText = "I passed out from boredom 💀";
       log(`Death by boredom 💀`);
+      const pacman = new Audio("./music/pacman.mp3");
+      pacman.volume = 0.1;
+      pacman.play();
       audio.src = "./music/sad_song.mp3";
       audio.play();
 
-      pet.removeAttribute("class"); //so it doesnt matter what pet is doing, it will be removed once it faints
+      pet.classList.toggle("sleeping");
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
@@ -213,14 +219,15 @@ class Pet {
     if (this.sleepiness === 10) {
       petSays.innerText = "I died of sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
+      const pacman = new Audio("./music/pacman.mp3");
+      pacman.volume = 0.1;
+      pacman.play();
       audio.src = "./music/sad_song.mp3";
       audio.play();
 
       petSays.innerText = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
-      this.isDead = true;
-
-      pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
+      pet.classList.toggle("sleeping");
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
@@ -228,6 +235,7 @@ class Pet {
       clearInterval(state.hungerInterval);
       clearInterval(state.boredomInterval);
       clearInterval(state.sleepinessInterval);
+      restartButton.classList.toggle("hidden");
     } else if (this.sleepiness >= 6) {
       petSays.innerText = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
       console.log(`YAAAAAAAAWWWWWWNNNN 🥱`);
