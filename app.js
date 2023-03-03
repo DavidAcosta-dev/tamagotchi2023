@@ -4,24 +4,6 @@ console.log("linked ⚡");
 
 const log = (string) => console.log(string);
 
-/*🔴//lets create the class
-
-class Pet {
-  // setup a constructor
-  constructor(name, guardian) {
-    this.name = name;
-    this.guardian = guardian;
-  }
-} //end of class
-
-//test one: Lets see if our pet exists!
-const myPet = new Pet("Lobo", "David");
-log(myPet);
-🔴*/
-
-//---------------------------------------
-//Step:2 'Lets add the pet's other properties like boredom, hunger, and sleepiness levels
-
 const state = {
   hungerInterval: null,
   ageInterval: null,
@@ -160,12 +142,15 @@ class Pet {
       pacman.play();
 
       audio.src = "./music/sad_song.mp3";
+      audio.volume = 0.1;
       audio.play();
 
       pet.classList.toggle("sleeping");
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
+      light.removeEventListener("click", myPet.sleep);
+
       clearInterval(state.ageInterval); //stop ALL the counting (Intervals) once it dies
       clearInterval(state.hungerInterval);
       clearInterval(state.boredomInterval);
@@ -197,6 +182,8 @@ class Pet {
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
+      light.removeEventListener("click", myPet.sleep);
+
       clearInterval(state.ageInterval); //stop ALL the counting (Intervals) once it dies
       clearInterval(state.hungerInterval);
       clearInterval(state.boredomInterval);
@@ -217,7 +204,7 @@ class Pet {
     console.log(`SLEEPINESS: ${this.sleepiness}`);
 
     if (this.sleepiness === 10) {
-      petSays.innerText = "I died of sleepiness 💀";
+      petSays.innerText = "I passed out from sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
       const pacman = new Audio("./music/pacman.mp3");
       pacman.volume = 0.1;
@@ -225,12 +212,12 @@ class Pet {
       audio.src = "./music/sad_song.mp3";
       audio.play();
 
-      petSays.innerText = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
-
       pet.classList.toggle("sleeping");
 
       boombox.removeEventListener("click", myPet.dance);
       fridge.removeEventListener("click", myPet.feedPet);
+      light.removeEventListener("click", myPet.sleep);
+
       clearInterval(state.ageInterval); //stop ALL the counting (Intervals) once it dies
       clearInterval(state.hungerInterval);
       clearInterval(state.boredomInterval);
@@ -307,9 +294,3 @@ class Pet {
     }
   };
 } //-----------------------------------end of class--------------------------
-
-//test 2: Lets see if our pet exists!
-// myPet = new Pet("Spike");
-// setTimeout(() => {
-//   myPet.hatching();
-// }, 500);

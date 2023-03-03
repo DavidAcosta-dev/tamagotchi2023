@@ -49,7 +49,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* img size is 154 x 230 */
   background: url("./images/chao_pattern.jpg") repeat 0 0;
   animation: bg-scrolling 3s infinite linear;
   height: 100vh;
@@ -305,7 +304,7 @@ main {
   margin-top: 9px;
   margin-bottom: 20px;
   height: 140px;
-  width: 100%;
+  /* width: 100%; */
   align-self: center;
 }
 
@@ -347,23 +346,6 @@ main {
   font-style: normal;
 }
 
-.controls {
-  display: flex;
-  justify-content: space-evenly;
-  /* border: solid 2px rgb(196, 0, 0); */
-  height: 70px;
-
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 80%;
-  align-self: center;
-}
-
-.controls button {
-  width: 100px;
-  border-radius: 13px;
-}
-
 /* wallpaper animation */
 
 @keyframes bg-scrolling {
@@ -381,6 +363,7 @@ main {
   animation: shake 0.5s;
   /* animation-iteration-count: 1; */
 }
+
 .noshake {
   animation: none;
 }
